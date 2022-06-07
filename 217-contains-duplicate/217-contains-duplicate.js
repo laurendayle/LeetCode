@@ -2,16 +2,15 @@
  * @param {number[]} nums
  * @return {boolean}
  */
-var containsDuplicate = function(nums) {
-  nums = nums.sort((a, b) => {
-    return a - b;
-  });
-  for (var i = 0; i < nums.length; i++) {
-    let current = nums[i];
-    for (var j = 0; j < nums.length; j++) {
-      if (current === nums[j] && i !== j) {
-        return true;
-      }
+var containsDuplicate = function(arr) {
+
+  arr.sort();
+  let counts = {};
+  for (var i = 0; i < arr.length; i++) {
+    if (counts[arr[i]] === undefined) {
+      counts[arr[i]] = 1;
+    } else {
+      return true;
     }
   }
   return false;
