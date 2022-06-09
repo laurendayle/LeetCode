@@ -2,15 +2,13 @@
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfit = function( prices ) {
+var maxProfit = function(prices) {
 
-        let maxProfit = 0;
-        let currentMin = prices[0];
-
-        prices.forEach((n) => {
-            currentMin = Math.min( n, currentMin );
-            maxProfit = Math.max( maxProfit, n - currentMin );
-        });
-    
-    return maxProfit;
-};
+  let maxProfit = 0,
+      minPrice = prices[0];
+  for (var i = 0; i < prices.length; i++) {
+    minPrice = Math.min(minPrice, prices[i]);
+    maxProfit = Math.max((prices[i] - minPrice), maxProfit);
+  }
+  return maxProfit;
+}
