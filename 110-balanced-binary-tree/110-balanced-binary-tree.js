@@ -11,17 +11,19 @@
  * @return {boolean}
  */
 var isBalanced = function(root) {
-  return helper(root, 0) >= 0;
+  
+  var getHeight = node => {
+    if (node === null) {
+      return 0;
+    }
+    let left = getHeight(node.left);
+    let right = getHeight(node.right);
+    
+    if (left === -1 || right === -1 || Math.abs(left - right) > 1) {
+      return -1; 
+    }
+    return Math.max(left, right) + 1;
+  }
+  
+  return getHeight(root) !== -1;
 };
-
-const helper = (root, depth) => {
-  if (!root) {
-    return depth;
-  }
-  var left = helper(root.left, depth + 1);
-  var right = helper(root.right, depth + 1);
-  if (left === -1 || right === -1 || Math.abs(left - right) > 1) {
-    return -1; 
-  }
-  return Math.max(left, right); 
-}
