@@ -12,22 +12,14 @@
  * @return {number}
  */
 var kthSmallest = function(root, k) {
-  
-  const dfs = (root) => {
-    if (!root || stack.length > k) {
-      return null; 
+
+
+  const traverse = (node) => {
+    if (node === null) {
+      return [];
     }
-
-    dfs(root.left);
-    stack.push(root.val);
-    dfs(root.right); 
+    return [...traverse(node.left), node.val, ...traverse(node.right)]; 
   }
-  let stack = [];
-  dfs(root);
-  return stack[k - 1];
-};
-
-
-
-
-	
+  let result = traverse(root);
+  return result[k - 1];
+}
