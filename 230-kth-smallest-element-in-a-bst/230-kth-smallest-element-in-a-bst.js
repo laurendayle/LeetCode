@@ -12,8 +12,6 @@
  * @return {number}
  */
 var kthSmallest = function(root, k) {
-
-
   const traverse = (node) => {
     if (node === null) {
       return [];
