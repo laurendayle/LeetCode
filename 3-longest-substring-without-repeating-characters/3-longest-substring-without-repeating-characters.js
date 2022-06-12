@@ -2,29 +2,18 @@
  * @param {string} s
  * @return {number}
  */
-
-var lengthOfLongestSubstring = function(s) {
+var lengthOfLongestSubstring = function(str) {
   
-  if (!s.length || typeof s !== 'string') {
-    return 0;
-  } else if (s.length === 1) {
-    return 1;
-  }
+  let n = str.length,
+      result = 0,
+      map = new Map();
   
-  let hashTable = {};
-  let longest = 0;
-  let start = 0;
-  let length = s.length; 
-  
-  const strings = s.split('');
-  
-  for (let i = 0; i < length; i++) {
-    if (hashTable[strings[i]] !== undefined && hashTable[strings[i]] >= start) {
-      start = hashTable[strings[i]] + 1;
+  for (var j = 0, i = 0; j < n; j++) {
+    if (map.has(str[j])) {
+      i = Math.max(map.get(str[j]), i);
     }
-    hashTable[strings[i]] = i;
-    longest = Math.max(longest, (i - start + 1));
+    result = Math.max(result, j - i + 1);
+    map.set(str[j], j + 1); 
   }
-  return longest;
-  
-};
+  return result; 
+}
