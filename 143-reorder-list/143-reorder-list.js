@@ -10,36 +10,36 @@
  * @return {void} Do not return anything, modify head in-place instead.
  */
 var reorderList = function(head) {
-  // find mid
-  let slow = head,
-      fast = head;
-
+  if (head === null) return; 
+  let fast = head,
+      slow = head;
+  
   while (fast !== null && fast.next !== null) {
-    fast = fast.next.next;
     slow = slow.next;
+    fast = fast.next.next;
   }
-
-  // reverse second half of linked list
+  
   let prev = null,
       curr = slow;
-
+  let tmp; 
   while (curr !== null) {
-    let tmp = curr.next;
+    tmp = curr.next;
     curr.next = prev;
     prev = curr;
-    curr = tmp;
+    curr = tmp; 
   }
+  
+  let first = head,
+      second = prev;
+  
+  while (second.next !== null) {
+    tmp = first.next;
+    first.next = second; 
+    first = tmp; 
+    
+    tmp = second.next;
+    second.next = first;
+    second = tmp; 
+  }
+};
 
-  // connect the nodes
-  let end = prev,
-      start = head;
-  while (end.next !== null) {
-    let stemp = start.next;
-    let etemp = end.next;
-    start.next = end;
-    end.next = stemp;
-    start = stemp;
-    end = etemp;
-  }
-  return head; 
-}
