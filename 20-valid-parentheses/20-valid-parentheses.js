@@ -3,32 +3,24 @@
  * @return {boolean}
  */
 var isValid = function(s) {
-  if (s === "") {
-    return true;
-  }
-  if (s.length < 2) {
-    return false;
-  }
   const pairs = {
-    '{': '}',
-    '[': ']',
     '(': ')',
-  };
+    '{': '}',
+    '[': ']'
+  }
   let stack = [];
-  let arr = s.toString().split('');
-  for (let i = 0; i < arr.length; i++) {
-    let br = arr[i];
-    if (pairs[br]) {
-      stack.push(br);
+  for (var i = 0; i < s.length; i++) {
+    let current = s[i];
+    if (pairs[current]) {
+      stack.push(current);
     } else {
-      let checkBr = stack.pop();
-      if (pairs[checkBr] !== br) {
-        return false; 
-      } 
+      let opening = stack[stack.length - 1];
+      if (pairs[opening] === current) {
+        stack.pop();
+      } else {
+        return false;
+      }
     }
   }
-  if (stack.length > 0) {
-    return false;
-  }
-  return true; 
+  return stack.length === 0; 
 };
