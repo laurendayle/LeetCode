@@ -8,8 +8,8 @@ var maxSubArray = function(nums) {
   
   for (var i = 1; i < nums.length; i++) {
     let num = nums[i];
-    current = Math.max(num, current + num);
-    max = Math.max(max, current);
+    current = Math.max(current + num, num);
+    max = Math.max(current, max);
   }
-  return max;
+  return max; 
 };
