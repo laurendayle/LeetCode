@@ -27,8 +27,6 @@ var findWinners = function(matches) {
   }
   let result = [[], []];
   for (var [player, score] of map) {
-    console.log(player, 'player');
-    console.log(score, 'score'); 
     if (score[1] === 0) {
       result[0].push(player);
     }
