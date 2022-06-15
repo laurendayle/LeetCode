@@ -7,8 +7,9 @@ var maxSubArray = function(nums) {
       max = nums[0];
   
   for (var i = 1; i < nums.length; i++) {
-    let num = nums[i];
-    current = Math.max(current + num, num);
+    let num = nums[i]; 
+    
+    current = Math.max(num, current + num); 
     max = Math.max(current, max);
   }
   return max; 
