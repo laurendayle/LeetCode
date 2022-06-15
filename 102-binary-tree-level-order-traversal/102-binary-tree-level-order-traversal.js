@@ -11,29 +11,20 @@
  * @return {number[][]}
  */
 var levelOrder = function(root) {
-  
-  if (!root) {
-    return [];
-  }
-  const queue = [root];
-  const output = [];
-  while (queue.length) {
-    // remove all current nodes in the queue and add each 
-    const len = queue.length; 
-    const row = [];
-    for (let i = 0; i < len; i++) {
-      const curr = queue.shift();
-      if (curr.left) {
-        queue.push(curr.left);
-      }
-      if (curr.right) {
-        queue.push(curr.right);
-      }
-      // push current node val to the row array 
-      row.push(curr.val);
+if (!root) return [];
+  let queue = [],
+      visited = [];
+  queue.push(root); 
+  while (queue.length !== 0) {
+    let subarr = []; 
+    const n = queue.length; 
+    for (let i = 0; i < n; i++) {
+      let node = queue.pop();
+      subarr.push(node.val);
+      if (node.left) queue.unshift(node.left);
+      if (node.right) queue.unshift(node.right);
     }
-    // push the current row array into the output array 
-    output.push(row);
+    visited.push(subarr);
   }
-  return output; 
-};
+  return visited;
+}
