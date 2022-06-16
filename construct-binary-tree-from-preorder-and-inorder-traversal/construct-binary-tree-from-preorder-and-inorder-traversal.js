@@ -12,24 +12,14 @@
  * @return {TreeNode}
  */
 var buildTree = function(preorder, inorder) {
+  // base case 
+  if (!preorder.length || !inorder.length) return null; 
 
-  let map = new Map();
-  for (let i = 0; i < inorder.length; i++) {
-    map.set(inorder[i], i);
-  }
-  return splitTree(preorder, map, 0, 0, inorder.length - 1);
+  let root = new TreeNode(preorder[0]);
+  let mid = inorder.indexOf(root.val);
 
-}
+  root.left = buildTree(preorder.slice(1, mid + 1), inorder.slice(0, mid)); 
+  root.right = buildTree(preorder.slice(mid + 1), inorder.slice(mid + 1)); 
 
-var splitTree = function(preorder, map, preIndex, inLeft, inRight) {
-  let rootVal = preorder[preIndex],
-      root = new TreeNode(rootVal),
-      mid = map.get(rootVal);
-  if (mid > inLeft) {
-    root.left = splitTree(preorder, map, preIndex + 1, inLeft, mid - 1);
-  } 
-  if (mid < inRight) {
-    root.right = splitTree(preorder, map, preIndex + mid - inLeft + 1, mid + 1, inRight);
-  }
-  return root;
+  return root; 
 }
