@@ -10,35 +10,18 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var detectCycle = function(head) {
-  if (head === null) {
-    return null; 
-  }
-  let intersection = getIntersection(head);
-  if (!intersection) {
-    return null; 
-  }
-  
-  let p1 = head;
-  let p2 = intersection;
-  while (p1 !== p2) {
-    p1 = p1.next;
-    p2 = p2.next;
-  }
-  return p1;
-};
+var detectCycle = head => {
+  if (!head) return null; 
 
-var getIntersection = function(head) {
-  let fast = head;
-  let slow = head;
-  
-  while (fast && fast.next) {
-    slow = slow.next;
-    fast = fast.next.next;
-    
-    if (slow === fast) {
-      return slow;
-    }
+  let curr = head,
+      seen = new Map(),
+      index = 0;
+
+  while (curr) {
+    if (seen.has(curr)) return curr; 
+    seen.set(curr); 
+    index++; 
+    curr = curr.next;
   }
-  return null; 
+  return null;
 }
