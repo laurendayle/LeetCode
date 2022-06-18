@@ -10,21 +10,20 @@
  * @param {ListNode} head
  * @return {boolean}
  */
+
 var hasCycle = function(head) {
+  if (!head) return false; 
+
+  let hash = new Map(),
+      current = head;
   
-  if (head === null) {
-    return false;
-  }
-  
-  let fast = head.next,
-      slow = head;
-  
-  while (slow !== fast) {
-    if (fast === null || fast.next == null) {
-      return false;
+  while (current.next) {
+    if (!hash.has(current)) {
+      hash.set(current);
+      current = current.next;
+    } else {
+      return true; 
     }
-    slow = slow.next;
-    fast = fast.next.next;
   }
-  return true;
-};
+  return false; 
+}
