@@ -10,12 +10,20 @@
  * @return {ListNode}
  */
 var middleNode = function(head) {
-  let slow = head,
-      fast = head;
-  
-  while (fast !== null && fast.next !== null) {
-    fast = fast.next.next;
-    slow = slow.next;
+  if (!head) return null; 
+
+  let index = 0,
+      seenNodes = new Map(),
+      current = head;
+
+  while (current) {
+    seenNodes.set(index, current);
+    current = current.next;
+    index++; 
   }
-  return slow;
-};
+  index--;
+  if (index % 2 !== 0) {
+    return seenNodes.get(Math.ceil(index / 2));
+  } 
+  return seenNodes.get(index / 2); 
+}
