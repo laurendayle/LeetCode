@@ -10,21 +10,22 @@
  * @param {number[]} nums
  * @return {TreeNode}
  */
+var sortedArrayToBST = nums => {
+  // base cases 
+  if (nums.length === 1) return new TreeNode(nums[0]);
+  if (nums.length === 0) return null; 
 
-var sortedArrayToBST = function(nums) {
-    
-  const traverse = (left, right) => {
-    if (left > right) { // invalid index 
-      return null;
-    }
-    const mid = left + Math.floor((right - left) / 2); // get middle index 
-    const root = new TreeNode(nums[mid]); // create node with middle value 
-    
-    root.left = traverse(left, mid - 1); // create left subtree 
-    root.right = traverse(mid + 1, right); // create right subtree 
-    
-    return root; 
-  }
-  
-  return traverse(0, nums.length - 1); // divide array into left and right subtrees 
-};
+  // get index of root node 
+  let mid = Math.floor(nums.length / 2);
+  let root = new TreeNode(nums[mid]); 
+
+  // recursively create left subtree from left subarr 
+  let leftSubtree = nums.slice(0, mid); 
+  root.left = sortedArrayToBST(leftSubtree);
+
+  // recursively create right subtree from right subarr 
+  let rightSubtree = nums.slice(mid + 1); 
+  root.right = sortedArrayToBST(rightSubtree);
+
+  return root; 
+}
