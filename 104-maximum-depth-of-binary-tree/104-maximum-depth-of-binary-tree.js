@@ -11,11 +11,10 @@
  * @return {number}
  */
 var maxDepth = function(root) {
-  if (root === null) {
-    return 0;
-  } else {
-    let leftHeight = maxDepth(root.left);
-    let rightHeight = maxDepth(root.right);
-    return Math.max(leftHeight, rightHeight) + 1;
-  }
+  if (!root) return 0;
+  
+  let left = maxDepth(root.left);
+  let right = maxDepth(root.right);
+  
+  return Math.max(left, right) + 1; 
 };
