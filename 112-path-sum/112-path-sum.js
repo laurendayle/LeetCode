@@ -11,14 +11,27 @@
  * @param {number} targetSum
  * @return {boolean}
  */
-var hasPathSum = function(root, sum) {
-  if (root === null) {
-    return false;
+var hasPathSum = (root, targetSum) => {
+
+  if (!root) return false; 
+
+  let hasPath = false; 
+
+  var dfs = (node, sum) => {
+    if (!node.left && !node.right) {
+      if (sum === node.val) {
+        hasPath = true; 
+      }
+      return; 
+    }
+
+    if (node.left) {
+      dfs(node.left, sum - node.val);
+    }
+    if (node.right) {
+      dfs(node.right, sum - node.val);
+    }
   }
-  sum -= root.val;
-  if ((root.left === null) && (root.right === null)) {
-    return sum === 0;
-  }
-  return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
-  
-};
+  dfs(root, targetSum);
+  return hasPath; 
+}
