@@ -3,25 +3,30 @@
  * @return {number}
  */
 var numIslands = function(grid) {
-  var result = 0;
-
-
-  for (let rowIndex in grid) {
-    for (let colIndex in grid[rowIndex]) {
-      if (grid[rowIndex][colIndex] === '1') {
-        result++;
-        teraform(parseInt(rowIndex), parseInt(colIndex), grid);
+  let counter = 0; 
+  
+  const dfs = (i, j) => {
+    if (
+    i >= 0 && 
+    j >= 0 && 
+    i < grid.length && 
+    j < grid[i].length && 
+    grid[i][j] === '1') {
+      grid[i][j] = '0';
+      dfs(i + 1, j); // top
+      dfs(i, j + 1); // right
+      dfs(i - 1, j); // bottom 
+      dfs(i, j - 1); // left 
+    }
+  }
+  
+  for (var i = 0; i < grid.length; i++) {
+    for (var j = 0; j < grid[i].length; j++) {
+      if (grid[i][j] === '1') {
+        counter++;
+        dfs(i, j); 
       }
     }
   }
-  return result;
-}
-// convert stuff around us to water
-var teraform = function(rowIndex, colIndex, grid) {
-  if (grid[rowIndex] === undefined || grid[rowIndex][colIndex] === undefined || grid[rowIndex][colIndex] === '0') return;
-  grid[rowIndex][colIndex] = '0';
-  teraform(rowIndex + 1, colIndex, grid);
-  teraform(rowIndex - 1, colIndex, grid);
-  teraform(rowIndex, colIndex + 1, grid);
-  teraform(rowIndex, colIndex - 1, grid);
-}
+  return counter; 
+};
