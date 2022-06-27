@@ -4,15 +4,12 @@
  */
 var maxProfit = prices => {
 
-  var minPrice = Infinity,  
+  let minPrice = +Infinity,
       maxProfit = 0;
-
+    
   for (var i = 0; i < prices.length; i++) {
-    if (prices[i] < minPrice) {
-      minPrice = prices[i];
-    } else if (prices[i] - minPrice > maxProfit) {
-      maxProfit = prices[i] - minPrice;
-    }
+    minPrice = Math.min(minPrice, prices[i]);
+    maxProfit = Math.max(prices[i] - minPrice, maxProfit);
   }
   return maxProfit;
 }
