@@ -10,21 +10,15 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isSymmetric = function(root) {
-  if (root === null) {
-    return true; 
-  }
-  return isMirror(root.left, root.right);
+var isSymmetric = root => {
+  if (!root) return true; 
+
+  return isSameTree(root.left, root.right);
 }
 
-var isMirror = function(tree1, tree2) {
-  if (tree1 === null && tree2 === null) {
-    return true; 
-  }
-  if (tree1 === null || tree2 === null) {
-    return false; 
-  }
-  return (tree1.val === tree2.val)
-    && isMirror(tree1.left, tree2.right)
-    && isMirror(tree1.right, tree2.left); 
+var isSameTree = (treeA, treeB) => {
+  if (!treeA && !treeB) return true;
+  if (!treeA || !treeB) return false;
+
+  return isSameTree(treeA.left, treeB.right) && isSameTree(treeA.right, treeB.left) && (treeA.val === treeB.val);
 }
