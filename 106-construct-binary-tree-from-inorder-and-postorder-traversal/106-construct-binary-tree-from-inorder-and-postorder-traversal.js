@@ -11,25 +11,21 @@
  * @param {number[]} postorder
  * @return {TreeNode}
  */
-var buildTree = function(inorder, postorder) {
-  return helper(inorder, postorder, 0, inorder.length - 1, postorder.length - 1);
-};
+var buildTree = (inorder, postorder) => {
+  let hash = new Map();
+  for (let i = 0; i < inorder.length; i++) {
+    hash[inorder[i]] = i;
+  }
+  var helper = (start, end) => {
+    if (start > end) return null; 
 
-var helper = function(inorder, postorder, inStart, inEnd, postIndex) {
-  if (inStart > inEnd || postIndex < 0) {
-    return null; 
+    let val = postorder.pop(),
+        root = new TreeNode(val);
+
+    root.right = helper(hash[val] + 1, end);
+    root.left = helper(start, hash[val] - 1);
+
+    return root;
   }
-  var index = 0; 
-  var root = new TreeNode(postorder[postIndex]);
-  
-  for (var i = inStart; i <= inEnd; i++) {
-    if (inorder[i] === root.val) {
-      index = i; 
-      break; 
-    }
-  }
-  root.right = helper(inorder, postorder, index + 1, inEnd, postIndex - 1);
-  root.left = helper(inorder, postorder, inStart, index - 1, postIndex - 1 - (inEnd - index));
-  
-  return root;
+  return helper(0, inorder.length - 1);
 }
