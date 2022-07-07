@@ -3,21 +3,23 @@
  * @return {number[][]}
  */
 var permute = function(nums) {
-  var result = [];
+  const result = []; 
   
-  var backtrack = (nums, temp) => {
-    if (temp.length === nums.length) {
-      result.push(temp.slice());
+  const generatePermutations = (nums, idx, slate) => {
+    if (slate.length === nums.length) {
+      result.push([...slate]);
       return;
     }
-    nums.forEach(function(num) {
-      if (!temp.includes(num)) {
-        temp.push(num);
-        backtrack(nums, temp);
-        temp.pop();
+    
+    for (let i = 0; i < nums.length; i++) {
+      if (!slate.includes(nums[i])) {
+        slate.push(nums[i]);
+        generatePermutations(nums, idx + 1, slate); 
+        slate.pop(); 
       }
-    })
+    }
   }
-  backtrack(nums, []);
-  return result;
+  
+  generatePermutations(nums, 0, []);
+  return result; 
 };
