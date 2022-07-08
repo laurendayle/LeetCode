@@ -5,23 +5,25 @@
  * @param {number} destination
  * @return {boolean}
  */
-const validPath = (n, edges, source, dest) => {
-  const graph = buildGraph(edges);
 
-  const queue = [source],
-        visited = new Set();
+// bfs approach 
+// var validPath = (n, edges, source, dest) => {
+//   const graph = buildGraph(edges);
 
-  while (queue.length) {
-    const current = queue.shift();
-    if (visited.has(current)) continue; 
-    visited.add(current); 
-    if (current === dest) return true;
-    for (let neighbor of graph[current]) {
-      queue.push(neighbor);
-    }
-  }
-  return false;
-}
+//   const queue = [source],
+//         visited = new Set();
+
+//   while (queue.length) {
+//     const current = queue.shift();
+//     if (visited.has(current)) continue; 
+//     visited.add(current); 
+//     if (current === dest) return true;
+//     for (let neighbor of graph[current]) {
+//       queue.push(neighbor);
+//     }
+//   }
+//   return false;
+// }
 
 const buildGraph = edges => {
   const graph = {}; 
@@ -34,3 +36,29 @@ const buildGraph = edges => {
   }
   return graph; 
 }
+
+// dfs approach 
+var validPath = (n, edges, source, dest) => {
+  const graph = buildGraph(edges);
+  const stack = [source];
+  const visited = new Set(); 
+  
+  while (stack.length) {
+    const current = stack.pop(); 
+    if (visited.has(current)) continue;
+    visited.add(current); 
+    if (current === dest) return true; 
+    for (let neighbor of graph[current]) {
+      stack.push(neighbor); 
+    }
+  }
+  return false; 
+}
+
+
+
+
+
+
+
+
