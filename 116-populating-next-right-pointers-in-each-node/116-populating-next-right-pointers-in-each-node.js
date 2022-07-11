@@ -13,22 +13,21 @@
  * @return {Node}
  */
 var connect = function(root) {
-  if (root === null) {
-    return root;
-  }
-
-  var leftNode = root;
-  while (leftNode.left !== null) {
-    let head = leftNode; 
-    while (head !== null) {
-      head.left.next = head.right; 
-
-      if (head.next !== null) {
-        head.right.next = head.next.left;
+  if (!root) return root;
+  
+  let leftNode = root;
+  
+  while (leftNode.left) {
+    let current = leftNode;
+    while (current) {
+      current.left.next = current.right;
+      
+      if (current.next) {
+        current.right.next = current.next.left;
       }
-      head = head.next;
+      current = current.next;
     }
     leftNode = leftNode.left;
   }
-  return root; 
-}
+  return root;
+};
