@@ -2,11 +2,11 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var sortedSquares = function(nums) {
-  const squared = nums.map((n) => {
-    return n**2;
-  })
-  return squared.sort((a, b) => {
-    return a - b; 
-  })
-};
+const sortedSquares = nums => {
+
+  const squared = nums.map((num) => {
+    return num * num;
+  }).sort((a, b) => a - b);
+
+  return squared;
+}
