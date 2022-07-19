@@ -24,5 +24,4 @@ var setZeroes = function(matrix) {
       }
     }
   }
-  console.log(matrix);
 };
