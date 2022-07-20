@@ -3,30 +3,30 @@
  * @param {string} word
  * @return {boolean}
  */
-var exist = function(board, word) {
-  for (var i = 0; i < board.length; i++) {
-    for (var j = 0; j < board[i].length; j++) {
-      if (board[i][j] === word[0] && dfs(board, i, j, 0, word)) {
-        return true;
+const exist = (board, word) => {
+
+  for (let r = 0; r < board.length; r++) {
+    for (let c = 0; c < board[r].length; c++) {
+      if (board[r][c] === word[0]) {
+        if (wordSearch(board, word, r, c, 0)) return true;
       }
     }
   }
   return false;
 }
 
-var dfs = function(board, i, j, count, word) {
-  if (count === word.length) {
-    return true;
-  }
-  if (i < 0 || i >= board.length || j < 0 || j >= board[i].length || board[i][j] !== word[count]) {
-    return false;
-  }
-  let temp = board[i][j];
-  board[i][j] = ' ';
-  let found = dfs(board, i + 1, j, count + 1, word)
-    || dfs(board, i - 1, j, count + 1, word)
-    || dfs(board, i, j + 1, count + 1, word)
-    || dfs(board, i, j - 1, count + 1, word);
-  board[i][j] = temp;
+const wordSearch = (board, word, r, c, i) => {
+  if (i === word.length) return true;
+  if (r < 0 || r >= board.length || c < 0 || c >= board[r].length || board[r][c] !== word[i]) return false;
+
+  let temp = board[r][c];
+  board[r][c] = ' ';
+
+  let found = wordSearch(board, word, r + 1, c, i + 1) || 
+              wordSearch(board, word, r - 1, c, i + 1) ||
+              wordSearch(board, word, r, c + 1, i + 1) ||
+              wordSearch(board, word, r, c - 1, i + 1);
+
+  board[r][c] = temp;
   return found;
 }
